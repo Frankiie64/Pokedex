@@ -1,0 +1,87 @@
+﻿@model BusinessLayer.ModelView.CreatePokemonDto;
+@{
+    
+    bool Create = Model.Pokemon.Id == 0 ? true : false;
+    if (Create)
+    {
+        ViewData["Title"] = " Crear Pokemones";
+
+    }
+    else
+    {
+        ViewData["Title"] = " Editar Pokemones";
+
+    }
+}
+
+<h2 id="Titulos" class="text-center mt-2">
+    @(Create ? "Agregar nuevo Pokemon" : "Editar pokemon" )
+</h2>
+<form method="post" asp-controller="Pokemones" asp-action="@(Create ? "CreatePokemon":"EditPokemon")" class="form-control bg-black text-light mt-2 border rounded rounded-2 border-3 border-success p-4">
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label asp-for="Pokemon.Nombre" class="form-label">Nombre del Pokemon</label>
+                <input type="text" asp-for="Pokemon.Nombre" value="@Model.Pokemon.Nombre" class="form-control" id="exampleFormControlInput1" placeholder="Fuego, Agua....">
+                <span asp-validation-for="Pokemon.Nombre"></span>
+
+            </div>
+            <div class="mb-3">
+                <select asp-for="Pokemon.IdHabilidadPrincipal" value="@Model.Pokemon.TipoHabilidadPrincipal" class="form-select">
+                    <option value="">Selecione su habilidad principal</option>
+                    @foreach (var item in Model.Tipos)
+                    {
+                        if (item.Id != 1)
+                        {
+                            <option value="@item.Id">@item.Titulo</option>
+
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Pokemon.IdHabilidadPrincipal"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="mb-3">
+                <label asp-for="Pokemon.ImagenUrl" class="form-label">Selecione la imagen </label>
+                <input asp-for="Pokemon.ImagenUrl" type="url" value="@Model.Pokemon.ImagenUrl" accept="image/*" class="form-control" placeholder="selecione la foto de perfil del pokemom">
+                <span asp-validation-for="Pokemon.ImagenUrl"></span>
+            </div>
+            <div class="mb-3">
+                <select asp-for="Pokemon.IdHabilidadSecundaria" value="@Model.Pokemon.TipoHabilidadSecundaria" class="form-select">
+                    <option value="1" selected>Selecione su habilidad secundaria</option>
+                    @foreach (var item in Model.Tipos)
+                    {
+                        if (item.Id != 1)
+                        {
+                            <option value="@item.Id">@item.Titulo</option>
+                        }                       
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="mb-3">
+            <select asp-for="Pokemon.IdRegion" value="@Model.Pokemon.IdRegion" class="form-select">
+                <option value="" selected>Selecione la region</option>
+                @foreach (var item in Model.Regiones)
+                {
+                    <option value="@item.Id">@item.Nombre</option>
+                }
+            </select>
+            <span asp-validation-for="Pokemon.IdRegion"></span>
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Descripcion</label>
+            <textarea class="form-control" asp-for="@Model.Pokemon.Descripcion" value="@Model.Pokemon.Descripcion" rows="3"></textarea>
+            <span asp-validation-for="Pokemon.Descripcion"></span>
+        </div>
+    </div>
+    <div class="text-end">
+        <input  asp-for="@Model.Pokemon.Id" hidden/>
+        <a asp-controller="Pokemones" asp-action="Index" type="button" class="btn btn-warning">Volver Atras <i class="fa-solid fa-arrow-rotate-left"></i></a>
+        <button type="submit" class="btn btn-primary">Guardar <i class="fa-solid fa-file-arrow-up"></i></button>
+    </div>
+</form>

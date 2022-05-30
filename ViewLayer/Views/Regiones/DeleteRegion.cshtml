@@ -1,0 +1,21 @@
+﻿@model BusinessLayer.ModelView.RegionesDto;
+@{ 
+    ViewData["Title"] = "Eliminar region";
+}
+
+<div class="row mt-3">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class=" card-header bg-danger text-light p-1 text-center">
+                <h4 class="mt-2">Esta seguro que desea eliminar la region @Model.Nombre?</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="Regiones" asp-action="DeleteRegionPost" class="text-center">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger mx-auto">Aceptar</button>
+                    <a asp-controller="Regiones" asp-action="Index" class="btn btn-warning mx-auto">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>   
+</div>

@@ -1,0 +1,28 @@
+﻿@model BusinessLayer.ModelView.RegionesDto;
+@{
+    bool Create = Model.Id == 0 ? true : false;
+    ViewData["Title"] = "Crear Regiones";
+
+}
+<h2 id="Titulos" class="text-center mt-2">
+    @(Create ? "Agregar una nueva region" : "Editar region")
+</h2>
+
+<form method="post" asp-controller="Regiones" asp-action="@(Create ? "CreateRegiones":"EditRegion")" class="form-control bg-black text-light mt-2 border rounded rounded-2 border-3 border-success p-4">
+    <div class="mb-3">
+        <label class="form-label">Nombre de la region</label>
+        <input type="text" class="form-control" asp-for="Nombre" value="@Model.Nombre" placeholder="Kanton, Johto">
+        <span asp-validation-for="Nombre"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Descripcion</label>
+        <textarea class="form-control" asp-for="Descripcion" value="@Model.Descripcion" rows="3"></textarea>
+        <span asp-validation-for="Descripcion"></span>
+    </div>
+    <div class="text-end">
+        <a asp-controller="Regiones" asp-action="Index" type="button" class="btn btn-warning">Volver Atras <i class="fa-solid fa-arrow-rotate-left"></i></a>
+        <button type="submit" class="btn btn-primary">Guardar <i class="fa-solid fa-file-arrow-up"></i></button>
+    </div>
+    <input type="text" hidden asp-for="Id" value="@Model.Id">
+
+</form>

@@ -1,0 +1,22 @@
+﻿@model BusinessLayer.ModelView.TiposPokemonesDto;
+@{ 
+    ViewData["Title"] = "Eliminar pokemon";
+}
+
+<div class="row mt-3">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class=" card-header bg-danger text-light p-1 text-center">
+                <h4 class="mt-2">Esta seguro que desea eliminar la habilidad de @Model.Titulo?</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="TipoPokemones" asp-action="DeletetipoPokemonPost" class="text-center">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger mx-auto">Aceptar</button>
+                    <a asp-controller="TipoPokemones" asp-action="Index" class="btn btn-warning mx-auto">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+</div>

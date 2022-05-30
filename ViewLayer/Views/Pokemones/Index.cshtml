@@ -1,0 +1,52 @@
+﻿@model List<BusinessLayer.ModelView.PokemonesDto>
+
+@{
+    ViewData["Title"] = "Pokemones";
+}
+<div class="container-fluid" style="width:80%;">
+    <div class="row">
+        <div class="col-5 offset-8 ps-5">
+            <a asp-controller="Pokemones" asp-action="CreatePokemon" type="button" class="btn btn-success m-2">Agregar un nuevo pokemon <i class=" fs-5 pb-3 fa-plus"></i></a>
+        </div>
+    </div>
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="container mx-auto my-auto">
+            <h2>No hay ningun pokemon creado</h2>
+            <p>Ha que esperas, cree pokemones para poder visualizarlos aqui.</p>
+        </div>
+    }
+    else
+    {
+
+        @foreach (var item in Model)
+
+        {
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row g-0">
+                    <div class="col-md-4 mt-1 text-center py-3">
+                        <img src="@item.ImagenUrl" class="img-fluid rounded-start mx-auto" alt="@item.Nombre" style="width:60%; height:auto;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body text-start">
+                            <h5 class="card-title">@item.Nombre - @item.Region.Nombre</h5>
+                            <p class="card-text">@item.Descripcion</p>
+                            <button class="btn btn-success me-1 text-light">@item.TipoHabilidadPrincipal.Titulo <img src="@item.TipoHabilidadPrincipal.ImagenUrl" class="img-fluid rounded-start mx-auto" style="width:16px; height:auto;"></button>
+                            @if (item.TipoHabilidadSecundaria.Id != 1)
+                            {
+                                <button class="btn btn-secondary ">@item.TipoHabilidadSecundaria.Titulo <img src="@item.TipoHabilidadSecundaria.ImagenUrl" class="img-fluid rounded-start mx-auto" style="width:16px; height:auto;"></button>
+                            }
+                        </div>
+                        <div class="row text-end  me-3 pt-3 mb-2">
+                            <div class="offset-6 col-6">
+                                <a asp-controller="Pokemones" asp-action="EditPokemon" asp-route-id="@item.Id" type="button" class="btn btn-info me-1 text-light">Editar <i class="fa-solid fa-file-pen"></i></a>
+                                <a asp-controller="Pokemones" asp-action="DeletePokemon" asp-route-id="@item.Id" type="button" class="btn btn-danger ">Eliminar  <i class="fa-solid fa-trash"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

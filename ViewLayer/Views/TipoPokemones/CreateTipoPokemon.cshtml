@@ -1,0 +1,35 @@
+﻿@model BusinessLayer.ModelView.TiposPokemonesDto;
+@{
+    bool Create = Model.Id == 0 ? true : false;
+    ViewData["Title"] = "Tipo Pokemones";
+
+}
+
+<h2 id="Titulos" class="text-center mt-2">
+    <h4>@(Create ? "Agregar nuevo Tipo de Pokemon" : "Editar el Tipo de Pokemon")</h4>
+</h2>
+
+<form method="post" asp-controller="TipoPokemones" asp-action="@(Create ? "CreateTipoPokemon":"EditipoPokemon")" class="form-control bg-black text-light mt-2 border rounded rounded-2 border-3 border-success p-4">
+    <div class="mb-3">
+        <label class="form-label">Tipo de Pokemon</label>
+        <input type="text" class="form-control" asp-for="Titulo" value="@Model.Titulo" placeholder="Fuego, Agua">
+        <span asp-validation-for="Titulo"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Link de la Imagen </label>
+        <input type="url" class="form-control" asp-for="ImagenUrl" value="@Model.ImagenUrl" placeholder="Asegurece de pegar bien la url de la img">
+        <span asp-validation-for="ImagenUrl"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Descripcion</label>
+        <textarea class="form-control" asp-for="Description" value="@Model.Description" rows="3"></textarea>
+    </div>
+    <div class="text-end">
+        <a asp-controller="TipoPokemones" asp-action="Index" type="button" class="btn btn-warning">Volver Atras <i class="fa-solid fa-arrow-rotate-left"></i></a>
+        <button type="submit" class="btn btn-primary">Guardar <i class="fa-solid fa-file-arrow-up"></i></button>
+
+    </div>
+        <input type="text" hidden asp-for="Id" value="@Model.Id">
+</form>
+
+
