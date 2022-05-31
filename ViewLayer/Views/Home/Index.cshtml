@@ -1,76 +1,135 @@
 ﻿@model BusinessLayer.ModelView.HomePokemonView;
 @{
-    ViewData["Title"] = "Home";
+    Layout = null;
 }
 
-<div class="row pe-xl-5 mt-3 ms-md-5" style="width:100%; height:auto">
-    <div class="mt-2 text-end pe-xl-5 me-5">
-        <button class="btn btn-success mb-1" onclick="Mostrar();" type="button" id="FiltroRegion">
-            Abrir Filtro <i id="DownArrow" class="fa-solid fa-arrow-down"></i>
-        </button>
-        <form method="post" asp-controller="Home" asp-action="FindByRegion" id="Filtro" class=" container mx-auto mt-2 border  text-light border border-0" hidden>
-            <div class="row  my-2">
-                <div class=" form-select-sm col-10 ">
-                    <select asp-for="Region.IdRegion" class="form-select">
-                        <option selected>Todas las regiones</option>
-                        @foreach (var item in Model.Regiones)
-                        {
-                            <option value="@item.Id">@item.Nombre</option>
-                        }
-                    </select>
-                </div>
-                <div class="text-start mt-1 fs-5 col-2">
-                    <button type="submit" class="btn btn-primary">Guardar <i class="fa-solid fa-file-arrow-up"></i></button>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Home - Pokedex</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://kit.fontawesome.com/67cf9a17fd.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="icon" href="~/Recursos/Img/icons8-dratini-48.png" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+            <div class="container-fluid">
+                <a class="navbar-brand mb-1" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/Recursos/Img/icons8-dratini-48.png" width="24" height="24" alt="p" class="d-inline-block align-text-top" />
+                    Pokedex
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <div class="btn-group">
+                            <a type="button" class="btn btn-dark pe-1" asp-area="" asp-controller="Pokemones" asp-action="Index">Pokemon</a>
+                        </div>
+                        <li class="nav-item">
+                            <a class="text-light nav-link" tabindex="-1" aria-disabled="true" asp-area="" asp-controller="Regiones" asp-action="Index">Regiones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="text-light nav-link" asp-area="" asp-controller="TipoPokemones" asp-action="Index">Tipos de Pokemones</a>
+                        </li>
+                    </ul>
+                    <form method="post" asp-controller="Home" asp-action="Index" class="d-flex w-50 h-auto">
+                        <input asp-for="Region.Nombre" class="form-control me-3 h-25  my-auto" type="text" placeholder="Escribe el nombre de un pokemon ej: Pikachu" aria-label="Search">
+                        <div class="btn-group">
+                            <button class="btn-grad btn pe-2" type="submit">Search</button>                                                      
+                        </div>
+                    </form>                    
+                </div>              
+            </div>           
+        </nav>
+    </header>
+    <div class="container">      
+        <main role="main" class="pb-3">
+            <div class="row pe-xl-5 mt-3 ms-md-5" style="width:100%; height:auto">
+                <div class="mt-2 text-end pe-xl-5 me-5">
+                    <button class="btn btn-success mb-1" onclick="Mostrar();" type="button" id="FiltroRegion">
+                        Abrir Filtro <i id="DownArrow" class="fa-solid fa-arrow-down"></i>
+                    </button>
+                    <form method="post" asp-controller="Home" asp-action="FindByRegion" id="Filtro" class=" container mx-auto mt-2 border  text-light border border-0" hidden>
+                        <div class="row  my-2">
+                            <div class=" form-select-sm col-10 ">
+                                <select asp-for="Region.IdRegion" class="form-select">
+                                    <option selected>Todas las regiones</option>
+                                    @foreach (var item in Model.Regiones)
+                                    {
+                                        <option value="@item.Id">@item.Nombre</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="text-start mt-1 fs-5 col-2">
+                                <button type="submit" class="btn btn-primary">Guardar <i class="fa-solid fa-file-arrow-up"></i></button>
+                            </div>
 
+                        </div>
+
+                    </form>
+                </div>
             </div>
 
-        </form>
-    </div>
-</div>
-
-@if (Model.Pokemon.Count == 0)
-{
-    <div class="container mx-auto my-auto">
-        <h2>No hay ningun pokemon </h2>
-        <p>Vaya al apartado de pokemon, para crear alguno, de la manera que desee.</p>
-    </div>
-}
-else
-{
-    
-    <div class="container">
-        <div class="row mt-sm-4 mx-auto">
-            <h2 class="card-title text-center">
-                Bienvenido entrenador, aqui podras ver todos tus pokemones
-            </h2>
-            @foreach (var item in Model.Pokemon)
+            @if (Model.Pokemon.Count == 0)
             {
-                <div id="columns" class="col-3 me-md-5 ms-3 ps-5 mt-4">
-                    <div id="items" class="card border-light" style="width: 18rem; height:auto">
-                        <a type="button" asp-controller="Home" asp-action="GetPokemon" class="btn">
-                            <img src="@item.ImagenUrl" style="width:13rem; height:220px;" class="card-img-top mx-auto" alt="pikachu">
-                            <div class="card-body">
-                                <h2 class="text-center">@item.Nombre</h2>
-                                <p class=" text-center">@item.Region.Nombre</p>
-                                <div class="row text-center">
-                                    <div id="Principal" class="col-6">
-                                        <p class="rounded-1 text-dark"> <strong>@item.TipoHabilidadPrincipal.Titulo</strong></p>
-                                    </div>
-                                    @if (item.TipoHabilidadSecundaria.Id != 1)
-                                    {
-                                        <div id="Secondary" class="col-6">
-                                            <p class=" rounded-1 bg-secondary text-light">@item.TipoHabilidadSecundaria.Titulo</p>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                <div class="container mx-auto my-auto">
+                    <h2>No hay ningun pokemon </h2>
+                    <p>Vaya al apartado de pokemon, para crear alguno, de la manera que desee.</p>
                 </div>
             }
-        </div>
+            else
+            {
 
+                <div class="container">
+                    <div class="row mt-sm-4 mx-auto">
+                        <h2 class="card-title text-center">
+                            Bienvenido entrenador, aqui podras ver todos tus pokemones
+                        </h2>
+                        @foreach (var item in Model.Pokemon)
+                        {
+                            <div id="columns" class="col-3 me-md-5 ms-3 ps-5 mt-4">
+                                <div id="items" class="card border-light" style="width: 18rem; height:auto">
+                                    <a type="button" asp-controller="Home" asp-action="GetPokemon" class="btn">
+                                        <img src="@item.ImagenUrl" style="width:13rem; height:220px;" class="card-img-top mx-auto" alt="pikachu">
+                                        <div class="card-body">
+                                            <h2 class="text-center">@item.Nombre</h2>
+                                            <p class=" text-center">@item.Region.Nombre</p>
+                                            <div class="row text-center">
+                                                <div id="Principal" class="col-6">
+                                                    <p class="rounded-1 text-dark"> <strong>@item.TipoHabilidadPrincipal.Titulo</strong></p>
+                                                </div>
+                                                @if (item.TipoHabilidadSecundaria.Id != 1)
+                                                {
+                                                    <div id="Secondary" class="col-6">
+                                                        <p class=" rounded-1 bg-secondary text-light">@item.TipoHabilidadSecundaria.Titulo</p>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            }
+        </main>
     </div>
-}
 
+    <footer class="border-top footer text-muted">
+        <div class="container text-center">
+            &copy;Copyright @DateTime.Now.Year - Para mas informacion contactarse con <a href="https://github.com/Frankiie64"> Franklyn Brea</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

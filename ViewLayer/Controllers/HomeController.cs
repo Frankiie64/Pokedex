@@ -30,9 +30,9 @@ namespace ViewLayer.Controllers
             });
         }
         [HttpPost]
-        public async Task<IActionResult> Index(string mv)
+        public async Task<IActionResult> Index(HomePokemonView mv)
         {
-            var list = _servicePokemon.GetPokemonesBySearch(mv);
+            var list = _servicePokemon.GetPokemonesBySearch(mv.Region.Nombre);
             return View(new HomePokemonView()
             {
                 Pokemon = await list,
@@ -48,7 +48,6 @@ namespace ViewLayer.Controllers
                 Pokemon = await list,
                 Regiones = await _servicePokemon.getAllRegiones()
             });
-        }
-
+        }       
     }
 }

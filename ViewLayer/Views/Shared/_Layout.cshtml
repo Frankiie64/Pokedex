@@ -24,17 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <div class="btn-group">
-                            <a type="button" class="btn btn-dark pe-1" asp-area="" asp-controller="Pokemones" asp-action="Index">Pokemon</a>
-                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split ps-1 pt-2" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown ">
-                                <li><a type="button" asp-area="" asp-controller="Pokemones" asp-action="Index" class="dropdown-item">Mejores Atacantes</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item">Mejores Defensores</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item">Lista de Pokemon por CP</a></li>
-                            </ul>
+                            <a type="button" class="btn btn-dark pe-1" asp-area="" asp-controller="Pokemones" asp-action="Index">Pokemon</a>                                                      
                         </div>
                         <li class="nav-item">
                             <a class="text-light nav-link" tabindex="-1" aria-disabled="true" asp-area="" asp-controller="Regiones" asp-action="Index">Regiones</a>
@@ -42,13 +32,8 @@
                         <li class="nav-item">
                             <a class="text-light nav-link" asp-area="" asp-controller="TipoPokemones" asp-action="Index">Tipos de Pokemones</a>
                         </li>
-                    </ul>
-                    <form  asp-controller="Home" asp-action="Index" asp-route-mv="pi" class="d-flex w-50 h-auto">
-                        <input  class="form-control me-3 h-25  my-auto" type="text" placeholder="Escribe el nombre de un pokemon ej: Pikachu" aria-label="Search">
-                        <button class="btn-grad btn" type="submit">Search</button>
-                    </form>
-
-                </div>
+                    </ul>                   
+                </div> 
             </div>
         </nav>
     </header>

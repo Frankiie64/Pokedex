@@ -68,9 +68,27 @@ namespace BusinessLayer.Repository
         public async Task<IEnumerable<Pokemones>> GetPokemonByRegion(int id)
         {
             IQueryable<Pokemones> query = _db.Pokemones;
-            if (id != 0)
+            if (id != 0 )
             {
                 query = query.Where(p => p.IdRegion == id);
+            }
+
+            return await query.Include(x => x.Region).Include(x => x.TipoHabilidadPrincipal).Include(x => x.TipoHabilidadSecundaria).ToListAsync();
+        }
+        public async Task<IEnumerable<Pokemones>> GetPokemonByFilter(int id,string name)
+        {
+            IQueryable<Pokemones> query = _db.Pokemones;
+            if (id != 0 && !string.IsNullOrEmpty(name))
+            {
+                query = query.Where(p => p.IdRegion == id && p.Nombre.Contains(name));
+            }
+            else if (id != 0)
+            {
+                query = query.Where(p => p.IdRegion == id);
+            }
+            else if (!string.IsNullOrWhiteSpace(name))
+            {
+                query = query.Where(p => p.Nombre.Contains(name));
             }
 
             return await query.Include(x => x.Region).Include(x => x.TipoHabilidadPrincipal).Include(x => x.TipoHabilidadSecundaria).ToListAsync();

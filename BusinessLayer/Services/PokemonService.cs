@@ -241,5 +241,40 @@ namespace BusinessLayer.Services
             }).ToList();
 
         }
+        public async Task<List<PokemonesDto>> GetPokemonByFilter(int id,string name)
+        {
+            var list = await _repo.GetPokemonByFilter(id,name);
+
+            return list.Select(x => new PokemonesDto()
+            {
+                Id = x.Id,
+                Nombre = x.Nombre,
+                Descripcion = x.Descripcion,
+                ImagenUrl = x.ImagenUrl,
+                IdHabilidadPrincipal = x.IdHabilidadPrincipal,
+                IdHabilidadSecundaria = x.IdHabilidadSecundaria,
+                IdRegion = x.IdRegion,
+                Region = new RegionCreateForPokemon()
+                {
+                    Id = x.Region.Id,
+                    Nombre = x.Region.Nombre
+                },
+                TipoHabilidadPrincipal = new TipoCreateForPokemon()
+                {
+                    Id = x.TipoHabilidadPrincipal.Id,
+                    Titulo = x.TipoHabilidadPrincipal.Titulo,
+                    ImagenUrl = x.TipoHabilidadPrincipal.ImagenUrl
+                },
+                TipoHabilidadSecundaria = new TipoCreateForPokemon()
+                {
+                    Id = x.TipoHabilidadSecundaria.Id,
+                    Titulo = x.TipoHabilidadSecundaria.Titulo,
+                    ImagenUrl = x.TipoHabilidadSecundaria.ImagenUrl
+
+                }
+
+            }).ToList();
+
+        }
     }
 }
