@@ -95,8 +95,8 @@
                         {
                             <div id="columns" class="col-3 me-md-5 ms-3 ps-5 mt-4">
                                 <div id="items" class="card border-light" style="width: 18rem; height:auto">
-                                    <a type="button" asp-controller="Home" asp-action="GetPokemon" class="btn">
-                                        <img src="@item.ImagenUrl" style="width:13rem; height:220px;" class="card-img-top mx-auto" alt="pikachu">
+                                    <a type="button" asp-controller="Home" asp-action="MoreInfo" asp-route-id="@item.Id" class="btn">
+                                        <img src="@item.ImagenUrl" style="width:13rem; height:220px;" class="card-img-top mx-auto" alt="@item.Nombre">
                                         <div class="card-body">
                                             <h2 class="text-center">@item.Nombre</h2>
                                             <p class=" text-center">@item.Region.Nombre</p>

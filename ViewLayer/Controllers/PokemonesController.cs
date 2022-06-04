@@ -75,12 +75,23 @@ namespace ViewLayer.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("TipoPokemones", mv);
+                return View("CreatePokemon", new CreatePokemonDto()
+                {
+
+                    Pokemon = mv.Pokemon,
+                    Regiones = await _service.getAllRegiones(),
+                    Tipos = await _service.getAllTiposPokemones()
+                });
             }
-          
+
             if (!await _service.edit(mv.Pokemon))
             {
-                return View("CreatePokemones", mv);
+                return View("CreatePokemon", new CreatePokemonDto() { 
+                
+                    Pokemon = mv.Pokemon,
+                    Regiones = await _service.getAllRegiones(),
+                    Tipos = await _service.getAllTiposPokemones()
+                });
             }
 
             return RedirectToRoute(new { Controller = "Pokemones", action = "Index" });

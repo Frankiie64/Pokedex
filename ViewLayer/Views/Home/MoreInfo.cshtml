@@ -1,0 +1,25 @@
+﻿@model BusinessLayer.ModelView.PokemonesDto;
+@{
+    ViewData["Title"] = "Detalles del pokemon";
+}
+<div class="card text-center mt-2">
+    <div class="card-header">
+       Ficha del Pokemon
+    </div>
+    <div class="card-body">
+        <h3> @Model.Nombre</h3>
+        <img src="@Model.ImagenUrl" style="width:13rem; height:220px;" class="card-img-top mx-auto" alt="@Model.Nombre">
+        <h5 class="card-title">De @Model.Region.Nombre</h5>
+        <p class="card-text">@Model.Descripcion</p>
+        <div class=" text-center p-3 m-2">
+            <a href="#" class="btn btn-success me-1">@Model.TipoHabilidadPrincipal.Titulo</a>
+            @if (Model.TipoHabilidadSecundaria.Id != 1)
+            {
+                <a href="#" class="btn btn-secondary ms-1">@Model.TipoHabilidadSecundaria.Titulo</a>
+            }
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-warning text-dark">Volver Atras <i class="fa-solid fa-arrow-rotate-left"></i></a>
+    </div>
+</div>

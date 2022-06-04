@@ -117,6 +117,24 @@ namespace BusinessLayer.Services
                 IdHabilidadPrincipal = x.IdHabilidadPrincipal,
                 IdHabilidadSecundaria = x.IdHabilidadSecundaria,
                 IdRegion = x.IdRegion,
+                Region = new RegionCreateForPokemon()
+                {
+                    Id = x.Region.Id,
+                    Nombre = x.Region.Nombre
+                },
+                TipoHabilidadPrincipal = new TipoCreateForPokemon()
+                {
+                    Id = x.TipoHabilidadPrincipal.Id,
+                    Titulo = x.TipoHabilidadPrincipal.Titulo,
+                    ImagenUrl = x.TipoHabilidadPrincipal.ImagenUrl
+                },
+                TipoHabilidadSecundaria = new TipoCreateForPokemon()
+                {
+                    Id = x.TipoHabilidadSecundaria.Id,
+                    Titulo = x.TipoHabilidadSecundaria.Titulo,
+                    ImagenUrl = x.TipoHabilidadSecundaria.ImagenUrl
+
+                }
             };
             return item;
         }

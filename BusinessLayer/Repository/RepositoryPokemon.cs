@@ -52,7 +52,8 @@ namespace BusinessLayer.Repository
 
         public async Task<Pokemones> GetPokemonById(int id)
         {
-            return await _db.Set<Pokemones>().FindAsync(id);
+            return await _db.Set<Pokemones>().Include(region => region.Region).Include(tp => tp.TipoHabilidadPrincipal).Include(tp => tp.TipoHabilidadSecundaria)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Pokemones>> GetPokemonByName(string name)
@@ -73,7 +74,10 @@ namespace BusinessLayer.Repository
                 query = query.Where(p => p.IdRegion == id);
             }
 
-            return await query.Include(x => x.Region).Include(x => x.TipoHabilidadPrincipal).Include(x => x.TipoHabilidadSecundaria).ToListAsync();
+            return await query.Include(x => x.Region).Include(x => x.TipoHabilidadPrincipal)
+                .Include(tp => tp.TipoHabilidadPrincipal)
+                .Include(x => x.TipoHabilidadSecundaria)
+                .ToListAsync();
         }
         public async Task<IEnumerable<Pokemones>> GetPokemonByFilter(int id,string name)
         {

@@ -48,6 +48,12 @@ namespace ViewLayer.Controllers
                 Pokemon = await list,
                 Regiones = await _servicePokemon.getAllRegiones()
             });
-        }       
+        }
+        public async Task<ActionResult> MoreInfo(int id)
+        {
+            var item = await _servicePokemon.getById(id);
+
+            return View(item);
+        }
     }
 }

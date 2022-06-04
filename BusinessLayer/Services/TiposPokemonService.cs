@@ -52,13 +52,7 @@ namespace BusinessLayer.Services
 
         public async Task<bool> add(TiposPokemonesDto mv)
         {
-            bool value = await getExistTipoPokemon(mv.Titulo);
-
-            if (value)
-            {
-                 return false;                
-            }
-
+          
             TiposPokemones tp = new()
             {
                 Titulo = mv.Titulo,

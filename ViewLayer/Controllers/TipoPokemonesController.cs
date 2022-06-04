@@ -60,16 +60,15 @@ namespace ViewLayer.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("CreateTipoPokemones", mv);
+                return View("CreateTipoPokemon", mv);
             }
-            bool value = await _service.getExistTipoPokemon(mv.Titulo);
 
            
-            value = await _service.edit(mv);
+           bool value = await _service.edit(mv);
 
             if (!value)
             {
-                return View("CreateTipoPokemones", mv);
+                return View("CreateTipoPokemon", mv);
             }
 
             return RedirectToRoute(new { Controller = "TipoPokemones", action = "Index" });
