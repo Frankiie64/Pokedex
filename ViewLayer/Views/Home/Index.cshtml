@@ -101,13 +101,20 @@
                                             <h2 class="text-center">@item.Nombre</h2>
                                             <p class=" text-center">@item.Region.Nombre</p>
                                             <div class="row text-center">
-                                                <div id="Principal" class="col-6">
-                                                    <p class="rounded-1 text-dark"> <strong>@item.TipoHabilidadPrincipal.Titulo</strong></p>
-                                                </div>
+
                                                 @if (item.TipoHabilidadSecundaria.Id != 1)
                                                 {
+                                                    <div id="Principal" class="col-6">
+                                                        <p class="rounded-1 text-dark"> <strong>@item.TipoHabilidadPrincipal.Titulo</strong></p>
+                                                    </div>
                                                     <div id="Secondary" class="col-6">
                                                         <p class=" rounded-1 bg-secondary text-light">@item.TipoHabilidadSecundaria.Titulo</p>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div id="Principal" class="col-12">
+                                                        <p class="rounded-1 text-dark"> <strong>@item.TipoHabilidadPrincipal.Titulo</strong></p>
                                                     </div>
                                                 }
                                             </div>
