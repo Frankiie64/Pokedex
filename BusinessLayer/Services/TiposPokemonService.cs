@@ -92,10 +92,8 @@ namespace BusinessLayer.Services
                 {
                     item.IdHabilidadSecundaria = 1;
                 }
-
                 await _repoPokemon.UpdatePokemo(item);
             }
-
             return await _repo.DeleteTipoPokemon(tp);
         }
 
