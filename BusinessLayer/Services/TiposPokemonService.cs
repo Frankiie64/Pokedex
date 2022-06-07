@@ -14,9 +14,12 @@ namespace BusinessLayer.Services
     {
         private readonly RepositoryTipoPokemon _repo;
 
+        private readonly RepositoryPokemon _repoPokemon;
+
         public TiposPokemonService(ApplicationDbContext db)
         {
             _repo = new(db);
+            _repoPokemon = new(db);
         }
 
         public async Task<List<TiposPokemonesDto>> getAll()
@@ -79,7 +82,19 @@ namespace BusinessLayer.Services
 
         public async Task<bool> delete(int id)
         {
-            TiposPokemones tp = await _repo.GetTiposPokemonById(id);            
+            TiposPokemones tp = await _repo.GetTiposPokemonById(id);
+
+            var list = await _repoPokemon.GetPokemones();
+
+            foreach (var item in list)
+            {
+                if (item.IdHabilidadSecundaria == id)
+                {
+                    item.IdHabilidadSecundaria = 1;
+                }
+
+                await _repoPokemon.UpdatePokemo(item);
+            }
 
             return await _repo.DeleteTipoPokemon(tp);
         }
