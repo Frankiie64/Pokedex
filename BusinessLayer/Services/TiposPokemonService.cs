@@ -26,6 +26,8 @@ namespace BusinessLayer.Services
         {
             var list = await _repo.GetTiposPokemones();
 
+            await AddNoneInDataBase(list);
+
             return list.Select(x => new TiposPokemonesDto
             {
                 Id = x.Id,
@@ -36,6 +38,20 @@ namespace BusinessLayer.Services
             }).ToList();
         }
 
+        private async Task AddNoneInDataBase(List<TiposPokemones> list )
+        {
+            if(list.Count == 0)
+            {
+                TiposPokemonesDto item = new TiposPokemonesDto()
+                {                    
+                    Titulo = "No",
+                    Description = "No posee habilidad secundaria",
+                    ImagenUrl = "no"
+                };
+
+                await add(item);
+            }
+        }
         public async Task<TiposPokemonesDto> getById(int id)
         {
             var x = await _repo.GetTiposPokemonById(id);

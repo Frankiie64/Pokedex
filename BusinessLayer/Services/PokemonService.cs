@@ -28,6 +28,7 @@ namespace BusinessLayer.Services
         public async Task<List<TipoCreateForPokemon>> getAllTiposPokemones()
         {
             var list = await _repoTipoPokemon.GetTiposPokemones();
+
             return list.Select(x => new TipoCreateForPokemon
             {
                 Id = x.Id,
